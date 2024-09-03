@@ -1,0 +1,85 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<style>
+    .last-news-post{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-left: 210px;
+        margin-bottom: 14px;
+        margin-right: 10px;
+        padding: 25px;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+        margin-top: 10px;
+    }
+    .last-news-post .alert{
+        width: 100%;
+    }
+    .last-news-post .add{
+        margin-bottom: 10px;
+    }
+    .last-news-post table{
+        width: 100%;
+    }
+    .last-news-post table th{
+        text-align: center;
+    }
+    .last-news-post table td a{
+        color: rgb(172, 107, 63);
+    }
+
+    @media(max-width:1115px){
+        .last-news-post{
+            margin-left: 8px;
+            margin-top: 30px;
+        }
+    }
+</style>
+
+
+<section class="last-news-post">
+    <div class="add">
+        <a href="{% url 'ajout-zonse-sante' %}" class="btn btn-success"><span class="fa fa-plus"></span> Enregistrer les zones de santé</a>
+    </div>
+    {% for message in messages %}
+      <div class="alert alert-success">
+        <p>{{message}}</p>
+      </div>
+    {% endfor %}
+    <table class="table table-hover table-responsive">
+        <tr>
+            <td colspan="8">Liste des zones de santé </td>
+        </tr>
+        <tr>
+            <th>N°</th>
+            <th>Designation</th>
+            <th>Date création</th>
+            <th>Hommes</th>
+            <th>Femmes</th>
+            <th>Nombre Affectation</th>
+            <th colspan="2">Action</th>
+        </tr>
+        {% for zone in zone_sante %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td><a href="#">{{zone.designation}}</a></td>
+            <td><a href="#">{{zone.date_creation}}</a></td>
+            <td><a href="#">{{zone.nombre_affectation_homme}}</a></td>
+            <td><a href="#">{{zone.nombre_affectation_femme}}</a></td>
+            <td><a href="#">{{zone.nombre_affectation}}</a></td>
+            <td><a href="{% url 'modif-zone-sante' zone.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
+            <td><a href="{% url 'supp-zone-sante' zone.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="8">Aucun enregistrement pour le moment</td>
+          </tr>
+        {% endfor %}
+    </table>
+</section>
+  
+
+  
+{% endblock content %}

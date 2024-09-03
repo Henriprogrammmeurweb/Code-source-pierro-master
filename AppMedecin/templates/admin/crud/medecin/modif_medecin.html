@@ -1,0 +1,62 @@
+{% extends "base/base.html" %}
+{% block header %}
+    {{ form.media }} # Required for styling/js to make ckeditor5 work
+{% endblock %}
+{% block content %}
+
+<style>
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: rgb(241, 241, 241);
+        margin-top: 0px;
+        margin-left: 202px;
+    }
+    .content .alert{
+        width: 100%;
+    }
+    .content .contenu{
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        width: 500px;
+        padding: 20px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        background-color: white;
+        border-radius: 5px;
+    }
+    .content .contenu form button{
+        margin-top: 25px;
+    }
+
+    @media(max-width:1115px){
+        .content{
+            margin-left: 0px;
+        }
+        .content .contenu{
+            width: 97%;
+        }
+    }
+</style>
+
+<div class="content">
+    {% for message in messages %}
+      <div class="alert alert-success" role="alert">
+        <p>{{message}}</p>
+      </div>
+    {% endfor %}
+    <div class="contenu">
+        <div class="titre">
+            <p>Modifer les informations de Medecin</p>
+        </div>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" class="btn btn-block btn-success">Modifier</button>
+        </form>
+    </div>
+</div>
+ 
+{% endblock content %}
+
