@@ -1,0 +1,87 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+<style>
+    .last-news-post{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-left: 210px;
+        margin-bottom: 14px;
+        margin-right: 10px;
+        padding: 25px;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+        margin-top: 10px;
+    }
+    .last-news-post .alert{
+        width: 100%;
+    }
+    .last-news-post .add{
+        margin-bottom: 10px;
+    }
+    .last-news-post table{
+        width: 100%;
+    }
+    .last-news-post table th{
+        text-align: center;
+    }
+    .last-news-post table td a{
+        color: rgb(172, 107, 63);
+    }
+
+    @media(max-width:1115px){
+        .last-news-post{
+            margin-left: 8px;
+            margin-top: 30px;
+        }
+    }
+</style>
+
+
+<section class="last-news-post">
+    <div class="add">
+        <a href="{% url 'inserer-utilisateur' %}" class="btn btn-success"><span class="fa fa-plus"></span> Enregistrer les utilisateurs</a>
+    </div>
+    {% for message in messages %}
+      <div class="alert alert-success">
+        <p>{{message}}</p>
+      </div>
+    {% endfor %}
+    <table class="table table-hover table-responsive">
+        <tr>
+            <td colspan="11">Liste des utilisateurs du site </td>
+        </tr>
+        <tr>
+            <th>N°</th>
+            <th>NOM</th>
+            <th>POST-NOMS</th>
+            <th>PRENOM</th>
+            <th>EMAIL</th>
+            <th>ADMIN</th>
+            <th>MEDECINS CREES</th>
+            <th colspan="2">Action</th>
+        </tr>
+        {% for utilisateur in users_site %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td><a href="#">{{utilisateur.username}}</a></td>
+            <td><a href="#">{{utilisateur.postnom}}</a></td>
+            <td><a href="#">{{utilisateur.prenom}}</a></td>
+            <td><a href="#">{{utilisateur.email}}</a></td>
+            <td><a href="#">{{utilisateur.get_admin}}</a></td>
+            <td><a href="#">{{utilisateur.get_nombre_medecin_cree}}</a></td>
+            <td><a href="{% url 'modif-utilisateur' utilisateur.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
+            <td><a href="{% url 'supp_utilisateur' utilisateur.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="11">Aucun enregistrement pour le moment</td>
+          </tr>
+        {% endfor %}
+    </table>
+</section>
+  
+
+  
+{% endblock content %}
