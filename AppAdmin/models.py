@@ -24,6 +24,12 @@ class Compte_Utilisateur(AbstractUser):
     def get_admin(self):
         return "Oui" if self.is_superuser and self.is_staff else "Non"
     
+    @property
+    def get_nombre_medecin_cree(self):
+        medecin = self.medecin_set.all()
+        total = len([i.auteur for i in medecin])
+        return total
+    
     
 
 

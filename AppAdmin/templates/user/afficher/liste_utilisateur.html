@@ -72,7 +72,7 @@
             <td><a href="#">{{utilisateur.get_admin}}</a></td>
             <td><a href="#">{{utilisateur.get_nombre_medecin_cree}}</a></td>
             <td><a href="{% url 'modif-utilisateur' utilisateur.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
-            <td><a href="{% url 'supp_utilisateur' utilisateur.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
+            <td><a href="#"><span class="fa fa-trash"></span> Supprimer</a></td>
           </tr>
           {% empty %}
           <tr>
