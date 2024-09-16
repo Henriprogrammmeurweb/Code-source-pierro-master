@@ -25,10 +25,11 @@
     }
     .last-news-post table th{
         text-align: center;
-        text-transform: uppercase;
+        font-weight: normal;
+        background-color: rgb(71, 102, 136);
     }
     .last-news-post table td a{
-        color: rgb(172, 107, 63);
+        color: #fff;
     }
 
     @media(max-width:1115px){
@@ -68,16 +69,16 @@
         {% for medecin in mouvement %}
           <tr>
             <td>{{forloop.counter}}</td>
-            <td><a href="#">{{medecin.medecin.nom}}</a></td>
-            <td><a href="#">{{medecin.medecin.postnom}}</a></td>
-            <td><a href="#">{{medecin.medecin.prenom}}</a></td>
-            <td><a href="#">{{medecin.medecin.sexe}}</a></td>
-            <td><a href="#">{{medecin.zone_sante.designation}}</a></td>
-            <td><a href="#">{{medecin.lieu}}</a></td>
-            <td><a href="#">{{medecin.service}}</a></td>
-            <td><a href="#">{{medecin.fonction}}</a></td>
-            <td><a href="{% url 'modif-mouvement' medecin.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
-            <td><a href="{% url 'supprimer-mouvement' medecin.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
+            <td>{{medecin.medecin.nom}}</td>
+            <td>{{medecin.medecin.postnom}}</td>
+            <td>{{medecin.medecin.prenom}}</td>
+            <td>{{medecin.medecin.sexe}}</td>
+            <td>{{medecin.zone_sante.designation}}</td>
+            <td>{{medecin.lieu}}</td>
+            <td>{{medecin.service}}</td>
+            <td>{{medecin.fonction}}</td>
+            <td><a href="{% url 'modif-mouvement' medecin.id %}" class="btn btn-success"> Modifier</a></td>
+            <td><a href="{% url 'supprimer-mouvement' medecin.id %}" class="btn btn-danger"> Supprimer</a></td>
           </tr>
           {% empty %}
           <tr>

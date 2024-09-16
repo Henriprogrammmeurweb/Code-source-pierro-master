@@ -12,6 +12,18 @@ def liste_medecin(request):
     return render(request, 'admin/crud/medecin/liste_medecin.html', context)
 
 
+def detail_medecin(request, id: int):
+    id_medecin = Medecin.objects.get(id=id)
+    affectation = Affectation.objects.filter(medecin=id_medecin)
+    mouvement = Mouvement.objects.filter(medecin=id_medecin)
+    context = {
+        'id_medecin':id_medecin,
+        'affectation':affectation,
+        'mouvement':mouvement
+    }
+    return render(request, "admin/detail/medecin/detail_medecin.html", context)
+
+
 def ajout_medecin(request):
     form=forms.FormAjoutMedecin()
     if request.method == 'POST':
@@ -56,6 +68,18 @@ def liste_zone_sante(request):
         "zone_sante":zone_sante
     }
     return render(request, 'admin/crud/zone/liste_zone_sante.html', context)
+
+
+def detail_zone_sante(request, id :int):
+    id_zone = ZoneSante.objects.get(id=id)
+    affectation = Affectation.objects.filter(zone_sante=id_zone)
+    mouvement = Mouvement.objects.filter(zone_sante=id_zone)
+    context = {
+        "id_zone":id_zone,
+        "affectation":affectation,
+        "mouvement":mouvement
+    }
+    return render(request, "admin/detail/zone/detail_zone_sante.html", context)
 
 
 def ajout_zonse_sante(request):
@@ -110,9 +134,14 @@ def ajout_affectation(request):
     if request.method == "POST":
         form = forms.FormAjoutAffectation(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Affectation enregistré avec succès !")
-            form=forms.FormAjoutAffectation()
+            medecin = form.cleaned_data['medecin']
+            affectation = Affectation.objects.filter(medecin=medecin).exists()
+            if affectation:
+                messages.error(request, "Ce médecin est déjà affecté, il peut déjà faire des mouvements")
+            else:
+                form.save()
+                messages.success(request, "Affectation enregistré avec succès !")
+                form=forms.FormAjoutAffectation()
         else:
             messages.error(request, "Impossible d'enregistrer cette affectation !")
     return render(request, 'admin/crud/affectation/ajout_affectation.html', {"form":form})
@@ -158,9 +187,14 @@ def ajout_mouvement(request):
     if request.method == "POST":
         form = forms.FormAjoutMouvement(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Mouvement enregistré avec succès !")
-            form=forms.FormAjoutMouvement()
+            medecin = form.cleaned_data['medecin']
+            affectation = Affectation.objects.filter(medecin=medecin).exists()
+            if affectation:
+                form.save()
+                messages.success(request, "Mouvement enregistré avec succès !")
+                form=forms.FormAjoutMouvement()
+            else:
+                messages.error(request, "Ce médecin n'a jamais été affecté, il ne peut jamais faire de mouvement !")
         else:
             messages.error(request, "Impossible d'enregistrer ce mouvement !")
     return render(request, 'admin/crud/mouvement/ajout_mouvement.html', {"form":form})
@@ -172,9 +206,14 @@ def modif_mouvement(request, id: int):
     if request.method == "POST":
         form = forms.FormAjoutMouvement(request.POST, instance=id_mouvement)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Mouvement modifié avec succès !")
-            return redirect('liste-mouvement')
+            medecin = form.cleaned_data['medecin']
+            affectation = Affectation.objects.filter(medecin=medecin).exists()
+            if affectation:
+                form.save()
+                messages.success(request, "Mouvement modifié avec succès !")
+                return redirect('liste-mouvement')
+            else:
+                messages.error(request, "Ce médecin n'a jamais été affecté, il ne peut jamais faire de mouvement !")
         else:
             messages.error(request, "Impossible de modifiée ce mmouvement !")
     return render(request, 'admin/crud/mouvement/modif_mouvement.html', {"form":form})

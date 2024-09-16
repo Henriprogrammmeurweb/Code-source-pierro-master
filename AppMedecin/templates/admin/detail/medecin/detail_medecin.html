@@ -1,0 +1,228 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    .profils{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin-right: 7px;
+        
+    }
+    .content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        padding-left: 35px;
+        padding-top: 30px;
+
+    }
+
+    .content .contenu {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        margin-right: 20px;
+        margin-top: 15px;
+    
+
+    }
+
+    .content-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 25px;
+    }
+
+    .content-img .img {
+        width: 190px;
+        height: 190px;
+        margin-bottom: 50px;
+
+
+    }
+
+    .content-img .img img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center center;
+    }
+
+    .content-img .img p {
+        margin-top: 10px;
+        text-align: center;
+    }
+    .affectation{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-right: 4px;
+    }
+    .affectation .titre{
+        background-color: rgb(245, 245, 245);
+        width: 100%;
+        padding: 5px;
+    }
+    .affectation .titre h3{
+        font-size: 16px;
+        color: black;
+        text-transform: uppercase;
+    }
+    .affectation .tables table{
+        width: 100%;
+    }
+    .affectation .tables .table th{
+        background-color: rgb(62, 75, 87);
+    }
+
+
+    @media(max-width:530px) {
+    .profils{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        margin: 7px;
+
+    }
+    .content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.25);
+        width: 100%;
+        padding-left: 35px;
+        padding-top: 30px;
+
+    }
+    }
+</style>
+
+<div class="profils">
+    <div class="content-img">
+        {% if user.is_authenticated %}
+        <div class="img">
+                {% if id_medecin.photo %}
+                    <img src="{{id_medecin.photo.url}}" alt="">
+                {% else %}
+                <img src="{% static 'img/userlogo.png' %}" alt="">
+                {% endif %}
+            <hr>
+        </div>
+
+        {% endif %}
+    </div>
+    <div class="content">
+        <div class="titre">
+            <p>Informations du Personnel</p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="infos-personnels">
+            <ul>
+            <li>Nom : {{id_medecin.nom}}</li>
+            <li>PostNom : {{id_medecin.postnom}}</li>
+            <li>Prénom : {{id_medecin.prenom}}</li>
+            <li>Sexe : {{id_medecin.sexe}}</li>
+            {% if id_medecin.matricule %}
+            <li>Matricule : {{id_medecin.matricule}}</li>
+            {% else %}
+            <li>Matricule : -</li>
+            {% endif %}
+            <li>Email : {{id_medecin.email}}</li>
+            <li>Téléphone : {{id_medecin.telephone}}</li>
+            <li>Spécialité : {{id_medecin.specialite}}</li>
+            <li>Adresse : {{id_medecin.adresse}}</li>
+            <li>Date_naissance : {{id_medecin.date_naissance}}</li>
+            
+            </ul>
+            <hr>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="affectation">
+    <div class="titre">
+        <h3>Première affectation</h3>
+    </div>
+    <div class="tables">
+        <table class="table table-hover table-responsive">
+            <tr>
+                <th>N°</th>
+                <th>Zone santé</th>
+                <th>Lieu</th>
+                <th>Fonction</th>
+                <th>Service</th>
+                <th>Date début</th>
+            </tr>
+            {% for affectaion_medecin in affectation %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{affectaion_medecin.zone_sante}}</td>
+                <td>{{affectaion_medecin.lieu}}</td>
+                <td>{{affectaion_medecin.fonction}}</td>
+                <td>{{affectaion_medecin.service}}</td>
+                <td>{{affectaion_medecin.date_debut}}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6">Ce médecin n'a jamais été affecté</td>
+              </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+<div class="affectation">
+    <div class="titre">
+        <h3>Tous les mouvements</h3>
+    </div>
+    <div class="tables">
+        <table class="table table-hover table-responsive">
+            <tr>
+                <th>N°</th>
+                <th>Zone santé</th>
+                <th>Lieu</th>
+                <th>Fonction</th>
+                <th>Service</th>
+                <th>Date début</th>
+            </tr>
+            {% for affectaion_medecin in mouvement %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{affectaion_medecin.zone_sante}}</td>
+                <td>{{affectaion_medecin.lieu}}</td>
+                <td>{{affectaion_medecin.fonction}}</td>
+                <td>{{affectaion_medecin.service}}</td>
+                <td>{{affectaion_medecin.date_debut}}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6">Au mouvement n'a été effectué par ce médecin</td>
+              </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+

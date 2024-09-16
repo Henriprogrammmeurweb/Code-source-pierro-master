@@ -19,5 +19,7 @@ urlpatterns = [
     path('liste-mouvement', views.liste_mouvement, name="liste-mouvement"),
     path('ajout-mouvement', views.ajout_mouvement, name="ajout-mouvement"),
     path('modif-mouvement=<int:id>', views.modif_mouvement, name="modif-mouvement"),
-    path('supprimer-mouvement=<int:id>', views.supprimer_mouvement, name="supprimer-mouvement")
+    path('supprimer-mouvement=<int:id>', views.supprimer_mouvement, name="supprimer-mouvement"),
+    path('detail-medecin=<int:id>', views.detail_medecin, name="detail-medecin"),
+    path('detail-zone-sante=<int:id>', views.detail_zone_sante, name="detail-zone-sante")
 ]

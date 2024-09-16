@@ -46,7 +46,7 @@
     {% endfor %}
     <div class="contenu">
         <div class="titre">
-            <p>Voulez-vous vraiment supprimer ce compte : {{id_user.get_nom}} ?</p>
+            <p>Voulez-vous vraiment supprimer ce compte de: {{id_utilisateur.get_nom}} ?</p>
         </div>
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}

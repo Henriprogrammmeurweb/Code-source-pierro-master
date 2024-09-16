@@ -17,7 +17,7 @@ class Compte_Utilisateur(AbstractUser):
 
     @property
     def get_nom(self):
-        return f"{self.username} {self.postnom} {self.prenom}"
+        return f"{self.prenom.capitalize()} {self.username.capitalize()}"
     
 
     @property

@@ -25,9 +25,11 @@
     }
     .last-news-post table th{
         text-align: center;
+        font-weight: normal;
+        background-color: rgb(71, 102, 136);
     }
     .last-news-post table td a{
-        color: rgb(172, 107, 63);
+        color: #fff;
     }
 
     @media(max-width:1115px){
@@ -65,14 +67,14 @@
         {% for utilisateur in users_site %}
           <tr>
             <td>{{forloop.counter}}</td>
-            <td><a href="#">{{utilisateur.username}}</a></td>
-            <td><a href="#">{{utilisateur.postnom}}</a></td>
-            <td><a href="#">{{utilisateur.prenom}}</a></td>
-            <td><a href="#">{{utilisateur.email}}</a></td>
-            <td><a href="#">{{utilisateur.get_admin}}</a></td>
-            <td><a href="#">{{utilisateur.get_nombre_medecin_cree}}</a></td>
-            <td><a href="{% url 'modif-utilisateur' utilisateur.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
-            <td><a href="#"><span class="fa fa-trash"></span> Supprimer</a></td>
+            <td>{{utilisateur.username}}</td>
+            <td>{{utilisateur.postnom}}</td>
+            <td>{{utilisateur.prenom}}</td>
+            <td>{{utilisateur.email}}</td>
+            <td>{{utilisateur.get_admin}}</td>
+            <td>{{utilisateur.get_nombre_medecin_cree}}</a></td>
+            <td><a href="{% url 'modif-utilisateur' utilisateur.id %}" class="btn btn-success"> Modifier</a></td>
+            <td><a href="{% url 'supprimer-utilisateur' utilisateur.id %}" class="btn btn-danger">Supprimer</a></td>
           </tr>
           {% empty %}
           <tr>

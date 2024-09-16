@@ -108,6 +108,19 @@ def modif_utilisateur(request, id: int):
 
 
 
+@login_required
+def supprimer_utilisateur(request, id: int):
+    id_utilisateur = Compte_Utilisateur.objects.get(id=id)
+    if request.method == "POST":
+        try:
+            id_utilisateur.delete()
+            messages.success(request, "Ce compte a été supprimé avec succès !")
+            return redirect('liste-utilisateur')
+        except:
+            messages.error(request, "Impossible de supprimer ce compte !")
+    return render(request, "user/delete/delete_user.html", {"id_utilisateur":id_utilisateur})
+
+
 
 @login_required
 def PasswordChange(request):

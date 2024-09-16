@@ -9,5 +9,6 @@ urlpatterns = [
     path('liste-utilisateur', views.liste_utilisateur, name='liste-utilisateur'),
     path('inserer-utilisateur', views.inserer_utilisateur, name="inserer-utilisateur"),
     path('modif-utilisateur=<int:id>', views.modif_utilisateur, name="modif-utilisateur"),
-    path('password-change', views.PasswordChange, name="password-change")
+    path('supprimer-utilisateur=<int:id>', views.supprimer_utilisateur, name="supprimer-utilisateur"),
+    path('password-change', views.PasswordChange, name="password-change"),
 ]

@@ -3,6 +3,12 @@
 {% block content %}
 
 <style>
+    header{
+        display: none !important;
+    }
+    footer{
+        margin-top: 0px !important;
+    }
     hr{
         color: #fbf9fc;
     }
@@ -11,7 +17,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: #7070a1;
+        background-color: #4b4b77;
         
         
     }
@@ -23,15 +29,21 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        padding-left: 15px;
+        padding-right: 15px;
+        background-color: #4b4b77;
     }
     .content .accueil h3{
         color: #f8f8f8;
-        text-transform: uppercase;
-        font-size: 19px;
+        /* text-transform: uppercase; */
+        font-size: 1.5rem;
+        text-align: center;
     }
     .content .accueil p{
         color: #dddddd;
-        text-transform: uppercase;
+        /* text-transform: uppercase; */
+        text-align: center;
+        font-size: 1.5rem;
     }
     .content .alert{
         margin-top: 30px;
@@ -42,7 +54,7 @@
         margin-bottom: 50px;
         padding: 22px;
         background-color: #fff;
-        border-radius: 2px;
+        border-radius: 8px;
         width: 520px;
         display: flex;
         justify-content: center;
@@ -79,11 +91,9 @@
     .content .contenu form input{
         padding: 22px;
         margin-top: 7px;
-        border: 1px solid #aeaed1;
         outline: none;
         box-shadow: none;
-        border-radius: 0px;
-        border-left: 2px solid #02ad88;
+        border-radius: 8px;
         
     }
     .content .contenu form label{
@@ -111,11 +121,11 @@
 <div class="content">
     <div class="accueil">
         <h3>Salut et Bienvenue</h3>
-        <p>Gérer efficacement les activités quotidiennes sans beaucoup des peines</p>
+        <p>Gestion des personnels de la Division Provinciale de la Santé de Lomami</p>
     </div>
     <div class="contenu">
         <div class="connexion">
-            <p>Manager les activités en un clic seulement</p>
+            <p>Accéder à votre au système en un clic</p>
         </div>
         <div class="line"></div>
         <form action="" method="post" novalidate>

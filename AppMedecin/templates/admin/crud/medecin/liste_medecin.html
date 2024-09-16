@@ -25,9 +25,11 @@
     }
     .last-news-post table th{
         text-align: center;
+        font-weight: normal;
+        background-color: rgb(71, 102, 136);
     }
     .last-news-post table td a{
-        color: rgb(172, 107, 63);
+        color: #fff;
     }
 
     @media(max-width:1115px){
@@ -60,19 +62,20 @@
             <th>PRENOMS</th>
             <th>SEXE</th>
             <th>SPECIALITE</th>
-            <th colspan="2">Action</th>
+            <th colspan="3">Action</th>
         </tr>
         {% for medecin in tout_medecin %}
           <tr>
             <td>{{forloop.counter}}</td>
-            <td><a href="#">{{medecin.matricule}}</a></td>
-            <td><a href="#">{{medecin.nom}}</a></td>
-            <td><a href="#">{{medecin.postnom}}</a></td>
-            <td><a href="#">{{medecin.prenom}}</a></td>
-            <td><a href="#">{{medecin.sexe}}</a></td>
-            <td><a href="#">{{medecin.specialite}}</a></td>
-            <td><a href="{% url 'modif-medecin' medecin.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
-            <td><a href="{% url 'supp-medecin' medecin.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
+            <td>{{medecin.matricule}}</td>
+            <td>{{medecin.nom}}</td>
+            <td>{{medecin.postnom}}</td>
+            <td>{{medecin.prenom}}</td>
+            <td>{{medecin.sexe}}</td>
+            <td>{{medecin.specialite}}</a></td>
+            <td><a href="{% url 'modif-medecin' medecin.id %}" class="btn btn-success"> Modifier</a></td>
+            <td><a href="{% url 'supp-medecin' medecin.id %}" class="btn btn-danger"> Supprimer</a></td>
+            <td><a href="{% url 'detail-medecin' medecin.id %}" class="btn btn-info">Detail</a></td>
           </tr>
           {% empty %}
           <tr>
