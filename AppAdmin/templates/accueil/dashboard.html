@@ -16,7 +16,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px -1px 0px 0px inset rgba(161, 161, 161, 0.25);
         margin: 8px 8px 8px 210px;
 
     }
@@ -77,7 +77,7 @@
         margin-left: 210px;
         margin-bottom: 14px;
         margin-right: 10px;
-        box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25);
+        box-shadow: 1px 0px 1px 1px rgba(189, 189, 189, 0.25);
     }
     .last-news-post table{
         min-width: 100%;
@@ -88,7 +88,7 @@
         font-weight: normal;
     }
     .last-news-post table td a{
-        color: rgb(172, 107, 63);
+        color: #fff;
     }
 
     /*MEDIA QUERY*/
@@ -150,7 +150,7 @@
     <table class="table table-hover table-responsive">
         <tr>
             <td colspan="9">Les 10 dernières affectations</td>
-            <td colspan="2"><a href="{% url 'ajout-affectation' %}" class="btn btn-light"><span class="fa fa-plus"></span> Enregistrer les affectations</a></td>
+            <td colspan="2"><a href="{% url 'ajout-affectation' %}" class="btn btn-dark"><span class="fa fa-plus"></span> Enregistrer les affectations</a></td>
         </tr>
         <tr>
             <th>N°</th>
@@ -167,16 +167,16 @@
         {% for medecin in affectation %}
         <tr>
           <td>{{forloop.counter}}</td>
-          <td><a href="#">{{medecin.medecin.nom}}</a></td>
-          <td><a href="#">{{medecin.medecin.postnom}}</a></td>
-          <td><a href="#">{{medecin.medecin.prenom}}</a></td>
-          <td><a href="#">{{medecin.medecin.sexe}}</a></td>
-          <td><a href="#">{{medecin.lieu}}</a></td>
-          <td><a href="#">{{medecin.service}}</a></td>
-          <td><a href="#">{{medecin.fonction}}</a></td>
-          <td><a href="#">{{medecin.date_debut|truncatewords:1}}</a></td>
-          <td><a href="{% url 'modif-affectation' medecin.id %}"><span class="fa fa-pencil"></span> Modifier</a></td>
-          <td><a href="{% url 'supprimer-affectation' medecin.id %}"><span class="fa fa-trash"></span> Supprimer</a></td>
+          <td>{{medecin.medecin.nom}}</td>
+          <td>{{medecin.medecin.postnom}}</td>
+          <td>{{medecin.medecin.prenom}}</td>
+          <td>{{medecin.medecin.sexe}}</td>
+          <td>{{medecin.lieu}}</td>
+          <td>{{medecin.service}}</td>
+          <td>{{medecin.fonction}}</td>
+          <td>{{medecin.date_debut|truncatewords:1}}</td>
+          <td><a href="{% url 'modif-affectation' medecin.id %}" class="btn btn-success"> Modifier</a></td>
+          <td><a href="{% url 'supprimer-affectation' medecin.id %}" class="btn btn-danger"> Supprimer</a></td>
         </tr>
         {% empty %}
         <tr>
