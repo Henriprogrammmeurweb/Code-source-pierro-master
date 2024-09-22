@@ -1,6 +1,7 @@
 import datetime
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required, permission_required
 import os
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -9,6 +10,7 @@ from .models import Medecin, ZoneSante, Mouvement, Affectation
 from .import forms
 
 
+@login_required
 def liste_medecin(request):
     tout_medecin = Medecin.objects.all().order_by('nom')
     context = {
@@ -17,6 +19,7 @@ def liste_medecin(request):
     return render(request, 'admin/crud/medecin/liste_medecin.html', context)
 
 
+@login_required
 def detail_medecin(request, id: int):
     id_medecin = Medecin.objects.get(id=id)
     affectation = Affectation.objects.filter(medecin=id_medecin)
@@ -29,6 +32,7 @@ def detail_medecin(request, id: int):
     return render(request, "admin/detail/medecin/detail_medecin.html", context)
 
 
+@login_required
 def ajout_medecin(request):
     form=forms.FormAjoutMedecin()
     if request.method == 'POST':
@@ -44,6 +48,7 @@ def ajout_medecin(request):
     return render(request, 'admin/crud/medecin/ajout_medecin.html', {"form":form})
 
 
+@login_required
 def modif_medecin(request, id:int):
     id_medecin = Medecin.objects.get(id=id)
     form=forms.FormAjoutMedecin(instance=id_medecin)
@@ -58,6 +63,7 @@ def modif_medecin(request, id:int):
     return render(request, 'admin/crud/medecin/modif_medecin.html', {"form":form})
 
 
+@login_required
 def supprimer_medecin(request, id:int):
     id_medecin = Medecin.objects.get(id=id)
     if request.method == 'POST':
@@ -67,6 +73,7 @@ def supprimer_medecin(request, id:int):
     return render(request, 'admin/crud/medecin/supp_medecin.html', {"id_medecin":id_medecin})
 
 
+@login_required
 def liste_zone_sante(request):
     zone_sante = ZoneSante.objects.all().order_by('designation')
     context = {
@@ -75,6 +82,7 @@ def liste_zone_sante(request):
     return render(request, 'admin/crud/zone/liste_zone_sante.html', context)
 
 
+@login_required
 def detail_zone_sante(request, id :int):
     id_zone = ZoneSante.objects.get(id=id)
     affectation = Affectation.objects.filter(zone_sante=id_zone)
@@ -87,6 +95,7 @@ def detail_zone_sante(request, id :int):
     return render(request, "admin/detail/zone/detail_zone_sante.html", context)
 
 
+@login_required
 def ajout_zonse_sante(request):
     form=forms.FormAjoutZoneSante()
     if request.method == "POST":
@@ -100,6 +109,7 @@ def ajout_zonse_sante(request):
     return render(request, 'admin/crud/zone/ajout_zone_sante.html', {"form":form})
 
 
+@login_required
 def modif_zone_sante(request, id: int):
     id_zone = ZoneSante.objects.get(id=id)
     form=forms.FormAjoutZoneSante(instance=id_zone)
@@ -114,6 +124,7 @@ def modif_zone_sante(request, id: int):
     return render(request, 'admin/crud/zone/modif_zone_sante.html', {"form":form})
 
 
+@login_required
 def supp_zone_sante(request, id: int):
     id_zone = ZoneSante.objects.get(id=id)
     try:
@@ -126,6 +137,7 @@ def supp_zone_sante(request, id: int):
     return render(request, 'admin/crud/zone/supp_zone_sante.html', {"id_zone":id_zone})
 
 
+@login_required
 def liste_affectation(request):
     affectation = Affectation.objects.all()
     context = {
@@ -134,6 +146,7 @@ def liste_affectation(request):
     return render(request, 'admin/crud/affectation/liste_affectation.html', context)
 
 
+@login_required
 def ajout_affectation(request):
     form = forms.FormAjoutAffectation()
     if request.method == "POST":
@@ -152,6 +165,7 @@ def ajout_affectation(request):
     return render(request, 'admin/crud/affectation/ajout_affectation.html', {"form":form})
 
 
+@login_required
 def modif_affectation(request, id: int):
     id_affectation = Affectation.objects.get(id=id)
     form = forms.FormAjoutAffectation(instance=id_affectation)
@@ -166,6 +180,7 @@ def modif_affectation(request, id: int):
     return render(request, 'admin/crud/affectation/modif_affectation.html', {"form":form})
 
 
+@login_required
 def supprimer_affectation(request, id: int):
     id_affectation = Affectation.objects.get(id=id)
     try:
@@ -178,7 +193,7 @@ def supprimer_affectation(request, id: int):
     return render(request, 'admin/crud/affectation/supp_affectation.html',{"id_affectation":id_affectation})
 
 
-
+@login_required
 def liste_mouvement(request):
     mouvement = Mouvement.objects.all()
     context = {
@@ -187,6 +202,7 @@ def liste_mouvement(request):
     return render(request, 'admin/crud/mouvement/liste_mouvement.html', context)
 
 
+@login_required
 def ajout_mouvement(request):
     form = forms.FormAjoutMouvement()
     if request.method == "POST":
@@ -205,6 +221,7 @@ def ajout_mouvement(request):
     return render(request, 'admin/crud/mouvement/ajout_mouvement.html', {"form":form})
 
 
+@login_required
 def modif_mouvement(request, id: int):
     id_mouvement = Mouvement.objects.get(id=id)
     form = forms.FormAjoutMouvement(instance=id_mouvement)
@@ -224,7 +241,7 @@ def modif_mouvement(request, id: int):
     return render(request, 'admin/crud/mouvement/modif_mouvement.html', {"form":form})
 
 
-
+@login_required
 def supprimer_mouvement(request, id: int):
     id_mouvement = Mouvement.objects.get(id=id)
     try:
@@ -237,7 +254,7 @@ def supprimer_mouvement(request, id: int):
     return render(request, 'admin/crud/mouvement/supp_mouvement.html', {"id_mouvement":id_mouvement})
 
 
-
+@login_required
 def pdf_affectation(request, id: int):
     affectation_id = Affectation.objects.get(id=id)
     dateToday = datetime.date.today()
@@ -259,7 +276,7 @@ def pdf_affectation(request, id: int):
     return response
 
 
-
+@login_required
 def pdf_mouvement(request, id: int):
     mouvement_id = Mouvement.objects.get(id=id)
     dateToday = datetime.date.today()
