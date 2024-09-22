@@ -241,11 +241,9 @@ def supprimer_mouvement(request, id: int):
 def pdf_affectation(request, id: int):
     affectation_id = Affectation.objects.get(id=id)
     dateToday = datetime.date.today()
-    logo_url = request.build_absolute_uri('/static/img/devise.png')  # Ajustez le chemin si nécessaire
     context = {
         "affectation_id":affectation_id,
         'dateToday':dateToday,
-        'logo_url': logo_url
     }
     template_path = 'admin/crud/affectation/pdf_affectation.html'
     response = HttpResponse(content_type="application/pdf")
