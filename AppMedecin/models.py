@@ -24,8 +24,14 @@ class Medecin(models.Model):
     def __str__(self) -> str:
         return f'{self.nom} {self.postnom} {self.prenom}'
     
+    @property
     def get_nom(self):
         return f"Medecin : {self.nom} {self.postnom} {self.prenom}"
+    
+    @property
+    def get_nom_mascule(self):
+        return f'{self.nom.upper()} {self.postnom.upper()} {self.prenom.upper()}'
+
     
 
 class ZoneSante(models.Model):

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <style>
+        @page {
+            margin: 2cm;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .content .table table {
+            font-family: Helvetica, sans-serif;
+        }
+
+        .content .table table tr th {
+            padding: 3px;
+        }
+
+        .content .table table tr #num {
+            width: 40px;
+
+        }
+
+        .content .table table tr #activite {
+            width: 250px;
+            padding: 3px;
+        }
+
+        .content .table table tr td {
+            padding: 3px;
+            font-size: 8px;
+        }
+
+        #signature {
+            height: 55px;
+            padding-top: 3px;
+        }
+    </style>
+
+    <div class="content">
+        <div class="table">
+            <table>
+                <tr>
+                    <td>
+                        <p style="text-align: center;">République Démocratique du Congo
+                         <br>
+                        Province de Lomami <br>
+                        <img src="./static/img/devise.png" alt="Rien" width="85px" height="85px"><br>
+                        Division Provinciale de la Santé <br>
+                        Bureau Gestion des Ressources <br>
+                        Kabinda le : {{dateToday}} <br> </p>
+                        <p style="text-align: center;text-decoration: underline;">AFFECTATION DE : {{mouvement_id.medecin.get_nom_mascule}}</p>
+                    </td>
+                </tr>      
+        </table>
+        <div class="description">
+            <p>Monsieur/Madame Medecin chef(fe) de zone de {{mouvement_id.zone_sante.designation}} ;</p>
+            <p>Monsieur/Madame nous venons par la présente vous signifier que {{mouvement_id.medecin.get_nom_mascule}} {% if mouvement_id.medecin.sexe == "M" %} a été affecté dans la zone de santé dont vous êtes responsable en qualité de : {{mouvement_id.fonction}} au service {{mouvement_id.service}} à {{mouvement_id.lieu}}. <p>Pour votre gouverne {{mouvement_id.medecin.get_nom_mascule}} a une spécialité en {{mouvement_id.medecin.specialite}}, il occupéra cette fonction comme signifier dans le paragraphe précédent en datant du {{mouvement_id.date_debut}} et doit assuerer les tâches qui seront sous sa responsabilité</p>
+            <p>Veuillez agréer Monsieur/Madame l'expression de nos sentiments patriotiques.</p> <p style="text-align: right;">Bureau gestion ressources humaines</p> {% else %} a été affectée dans la zone de santé dont vous êtes responsable en qualité de : {{mouvement_id.fonction}} au service {{mouvement_id.service}} à {{mouvement_id.lieu}}. </p>
+            <p>Pour votre gouverne {{mouvement_id.medecin.get_nom_mascule}} a une spécialité en {{mouvement_id.medecin.specialite}}, il occupéra cette fonction comme signifier dans le paragraphe précédent en datant du {{mouvement_id.date_debut}} et doit assuerer les tâches qui seront sous sa responsabilité</p>
+            <p>Veuillez agréer Monsieur/Madame l'expression de nos sentiments patriotiques.</p>
+            <p style="text-align: right;">Bureau gestion ressources humaines</p>
+            {% endif %}</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

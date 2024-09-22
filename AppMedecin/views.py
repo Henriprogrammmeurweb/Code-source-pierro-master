@@ -1,4 +1,9 @@
+import datetime
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
+import os
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 from django.contrib import messages
 from .models import Medecin, ZoneSante, Mouvement, Affectation
 from .import forms
@@ -230,5 +235,50 @@ def supprimer_mouvement(request, id: int):
     except:
         messages.error(request, "Impossible de supprimer ce mouvement !")
     return render(request, 'admin/crud/mouvement/supp_mouvement.html', {"id_mouvement":id_mouvement})
+
+
+
+def pdf_affectation(request, id: int):
+    affectation_id = Affectation.objects.get(id=id)
+    dateToday = datetime.date.today()
+    context = {
+        "affectation_id":affectation_id,
+        'dateToday':dateToday,
+    }
+    template_path = 'admin/crud/affectation/pdf_affectation.html'
+    response = HttpResponse(content_type="application/pdf")
+    response['Content-Disposition'] = 'attachment; filename="pdf_affectation.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+        # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('Impossible de générer ce pdf')
+    return response
+
+
+
+def pdf_mouvement(request, id: int):
+    mouvement_id = Mouvement.objects.get(id=id)
+    dateToday = datetime.date.today()
+    context = {
+        "mouvement_id":mouvement_id,
+        'dateToday':dateToday,
+    }
+    template_path = 'admin/crud/mouvement/pdf_mouvement.html'
+    response = HttpResponse(content_type="application/pdf")
+    response['Content-Disposition'] = 'attachment; filename="pdf_affectation.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+        # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('Impossible de générer ce pdf')
+    return response
+
 
 

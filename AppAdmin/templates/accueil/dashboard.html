@@ -3,11 +3,17 @@
 
 <style>
     .user{
-        margin-left: 208px;
-        margin-top: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-left: 200px;
+        margin-top: 0px;
+        background-color: rgb(19, 79, 114);
+        height: 50px;
+        padding-left: 3px;
     }
     .user p{
-        color: rgb(49, 48, 49);
+        color: #fff;
         font-size: 15px;
         font-weight: normal;
     }
@@ -16,7 +22,6 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        box-shadow: 0px -1px 0px 0px inset rgba(161, 161, 161, 0.25);
         margin: 8px 8px 8px 210px;
 
     }
@@ -149,8 +154,7 @@
 <section class="last-news-post">
     <table class="table table-hover table-responsive">
         <tr>
-            <td colspan="9">Les 10 dernières affectations</td>
-            <td colspan="2"><a href="{% url 'ajout-affectation' %}" class="btn btn-dark"><span class="fa fa-plus"></span> Enregistrer les affectations</a></td>
+            <td colspan="11">Les 10 dernières affectations</td>
         </tr>
         <tr>
             <th>N°</th>

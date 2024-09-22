@@ -21,5 +21,7 @@ urlpatterns = [
     path('modif-mouvement=<int:id>', views.modif_mouvement, name="modif-mouvement"),
     path('supprimer-mouvement=<int:id>', views.supprimer_mouvement, name="supprimer-mouvement"),
     path('detail-medecin=<int:id>', views.detail_medecin, name="detail-medecin"),
-    path('detail-zone-sante=<int:id>', views.detail_zone_sante, name="detail-zone-sante")
+    path('detail-zone-sante=<int:id>', views.detail_zone_sante, name="detail-zone-sante"),
+    path('pdf-affectation=<int:id>', views.pdf_affectation, name="pdf-affectation"),
+    path('pdf-mouvement=<int:id>', views.pdf_mouvement, name="pdf-mouvement"),
 ]
